@@ -1,0 +1,76 @@
+{
+ "dataset": "nadig25hepg2",
+ "n_test_conditions": 2322,
+ "n_target_in_axis": 2100,
+ "published_models_WMSE": {
+  "CellFlow": 0.046,
+  "fMLP-ESM2": 0.043,
+  "fMLP-Geneformer": 0.045,
+  "fMLP-GenePT": 0.041,
+  "fMLP-scGPT": 0.044,
+  "GEARS": 0.046,
+  "PRESAGE": 0.039,
+  "scGPT": 0.04,
+  "scLambda": 0.042
+ },
+ "Dataset Mean": {
+  "WMSE_mean": 0.04819,
+  "sem": 0.00162,
+  "per_fold": [
+   0.04855,
+   0.04279,
+   0.04501,
+   0.05048,
+   0.0541
+  ]
+ },
+ "KD multiplicative (primary)": {
+  "WMSE_mean": 0.03981,
+  "sem": 0.00084,
+  "per_fold": [
+   0.03905,
+   0.03882,
+   0.03992,
+   0.04052,
+   0.04075
+  ]
+ },
+ "KD additive": {
+  "WMSE_mean": 0.04605,
+  "sem": 0.00144,
+  "per_fold": [
+   0.04611,
+   0.04142,
+   0.04352,
+   0.04813,
+   0.05109
+  ]
+ },
+ "KD zero (exploratory)": {
+  "WMSE_mean": 0.04007,
+  "sem": 0.00085,
+  "per_fold": [
+   0.03932,
+   0.03905,
+   0.04011,
+   0.04072,
+   0.04117
+  ]
+ },
+ "KD_primary_minus_DatasetMean_paired": {
+  "mean": -0.00837,
+  "sem": 0.00132
+ },
+ "Linear: per-fold mean (WMSE_bKD - WMSE_model)": [
+  -0.00825,
+  -0.00321,
+  -0.00359,
+  -0.00926,
+  -0.01187
+ ],
+ "Linear: share of conditions where model beats b_KD": 0.417,
+ "scGPT: per-fold mean (WMSE_bKD - WMSE_model)": [
+  -0.00102
+ ],
+ "scGPT: share of conditions where model beats b_KD": 0.365
+}

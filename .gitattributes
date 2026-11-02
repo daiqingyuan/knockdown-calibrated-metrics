@@ -1,0 +1,2 @@
+# Keep the plan files byte-for-byte so that their SHA-256 digests verify on every platform
+plans/** -text

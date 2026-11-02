@@ -1,0 +1,112 @@
+{
+ "GEARS": {
+  "published": 0.033,
+  "reproduced_mean": 0.03353,
+  "sem_over_conditions": 0.00117,
+  "sem_over_folds": 0.00064,
+  "n_conditions": 2029,
+  "per_fold": [
+   0.03353,
+   0.03252,
+   0.0319,
+   0.0356,
+   0.03407
+  ],
+  "paired_gap_vs_DatasetMean": {
+   "mean": 0.00027,
+   "sem": 0.00017,
+   "share_conditions_model_better": 0.297
+  }
+ },
+ "scGPT": {
+  "published": 0.027,
+  "reproduced_mean": 0.02681,
+  "sem_over_conditions": 0.00119,
+  "sem_over_folds": 0.00142,
+  "n_conditions": 1825,
+  "per_fold": [
+   0.02551,
+   0.0257,
+   0.02288,
+   0.02903,
+   0.03095
+  ],
+  "paired_gap_vs_DatasetMean": {
+   "mean": 0.00872,
+   "sem": 0.00084,
+   "share_conditions_model_better": 0.676
+  }
+ },
+ "Dataset Mean": {
+  "published": 0.034,
+  "reproduced_mean": 0.03371,
+  "sem_over_conditions": 0.00125,
+  "sem_over_folds": 0.00061,
+  "n_conditions": 2044,
+  "per_fold": [
+   0.03287,
+   0.03292,
+   0.03243,
+   0.03484,
+   0.03549
+  ]
+ },
+ "Control Mean": {
+  "published": 0.035,
+  "reproduced_mean": 0.03488,
+  "sem_over_conditions": 0.0013,
+  "sem_over_folds": 0.00065,
+  "n_conditions": 2044,
+  "per_fold": [
+   0.03381,
+   0.03409,
+   0.03366,
+   0.03597,
+   0.03689
+  ]
+ },
+ "Linear": {
+  "published": 0.034,
+  "reproduced_mean": 0.03443,
+  "sem_over_conditions": 0.00131,
+  "sem_over_folds": 0.00073,
+  "n_conditions": 1855,
+  "per_fold": [
+   0.03396,
+   0.03349,
+   0.03248,
+   0.03603,
+   0.03622
+  ]
+ },
+ "Tech. Dup.": {
+  "published": 0.011,
+  "reproduced_mean": 0.01076,
+  "sem_over_conditions": 0.0002,
+  "sem_over_folds": 0.0003,
+  "n_conditions": 2044,
+  "per_fold": [
+   0.01042,
+   0.01174,
+   0.01116,
+   0.01008,
+   0.01042
+  ]
+ },
+ "Inter. Dup.": {
+  "published": 0.013,
+  "reproduced_mean": 0.01349,
+  "sem_over_conditions": 0.00025,
+  "sem_over_folds": 0.00036,
+  "n_conditions": 2044,
+  "per_fold": [
+   0.01285,
+   0.0148,
+   0.01335,
+   0.01283,
+   0.01364
+  ]
+ },
+ "_check_max_abs_author_GT_minus_my_mean": 2.4971209073854084e-06,
+ "_seconds": 21.1
+}

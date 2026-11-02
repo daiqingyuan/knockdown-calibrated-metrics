@@ -1,0 +1,370 @@
+{
+ "plan_sha256": "61a1bf7ca469547abd1f1c7c6449576ecb8ec0ed10768389f85ea8f16f197c1e",
+ "dataset": "replogle22k562",
+ "published_models_(WR2ctrl, WR2pert)": {
+  "PRESAGE": [
+   0.108,
+   0.134
+  ],
+  "scLambda": [
+   0.066,
+   0.092
+  ],
+  "scGPT": [
+   0.068,
+   0.09
+  ],
+  "fMLP-GenePT": [
+   0.047,
+   0.076
+  ],
+  "fMLP-ESM2": [
+   0.016,
+   0.049
+  ],
+  "CellFlow": [
+   0.009,
+   0.031
+  ],
+  "fMLP-Geneformer": [
+   -0.029,
+   0.001
+  ],
+  "fMLP-scGPT": [
+   -0.049,
+   -0.016
+  ],
+  "GEARS": [
+   -0.196,
+   -0.149
+  ]
+ },
+ "baselines": {
+  "Dataset Mean": {
+   "WR2_ctrl": {
+    "mean": -0.0696,
+    "sem": 0.0029,
+    "n": 2044,
+    "published": -0.069,
+    "abs_diff": 0.0006
+   },
+   "WR2_pert": {
+    "mean": -0.0353,
+    "sem": 0.0012,
+    "n": 2044,
+    "published": -0.035,
+    "abs_diff": 0.0003
+   }
+  },
+  "Control Mean": {
+   "WR2_ctrl": {
+    "mean": -0.0366,
+    "sem": 0.0012,
+    "n": 2044,
+    "published": -0.037,
+    "abs_diff": 0.0004
+   },
+   "WR2_pert": {
+    "mean": -0.0192,
+    "sem": 0.0033,
+    "n": 2044,
+    "published": -0.02,
+    "abs_diff": 0.0008
+   }
+  },
+  "Linear": {
+   "WR2_ctrl": {
+    "mean": -0.0423,
+    "sem": 0.0035,
+    "n": 1855,
+    "published": -0.042,
+    "abs_diff": 0.0003
+   },
+   "WR2_pert": {
+    "mean": -0.0199,
+    "sem": 0.0018,
+    "n": 1855,
+    "published": -0.02,
+    "abs_diff": 0.0001
+   }
+  },
+  "Tech. Dup.": {
+   "WR2_ctrl": {
+    "mean": 0.3168,
+    "sem": 0.0101,
+    "n": 2044,
+    "published": 0.319,
+    "abs_diff": 0.0022
+   },
+   "WR2_pert": {
+    "mean": 0.3675,
+    "sem": 0.0086,
+    "n": 2044,
+    "published": 0.369,
+    "abs_diff": 0.0015
+   }
+  },
+  "Inter. Dup.": {
+   "WR2_ctrl": {
+    "mean": 0.2437,
+    "sem": 0.0087,
+    "n": 2044,
+    "published": 0.245,
+    "abs_diff": 0.0013
+   },
+   "WR2_pert": {
+    "mean": 0.2884,
+    "sem": 0.0074,
+    "n": 2044,
+    "published": 0.289,
+    "abs_diff": 0.0006
+   }
+  },
+  "KD": {
+   "WR2_ctrl": {
+    "mean": 0.0542,
+    "sem": 0.0063,
+    "n": 2044
+   },
+   "WR2_pert": {
+    "mean": 0.0886,
+    "sem": 0.0054,
+    "n": 2044
+   }
+  },
+  "KD_add": {
+   "WR2_ctrl": {
+    "mean": 0.011,
+    "sem": 0.0043,
+    "n": 2044
+   },
+   "WR2_pert": {
+    "mean": 0.0445,
+    "sem": 0.0031,
+    "n": 2044
+   }
+  }
+ },
+ "gate_baselines_within_0.01": true,
+ "Linear": {
+  "n_conditions": 1855,
+  "ctrl": {
+   "model_mean": -0.0423,
+   "KD_mean_same_conditions": 0.0795,
+   "E3prime_model_minus_KD": {
+    "mean": -0.1218,
+    "ci95": [
+     -0.1328,
+     -0.1107
+    ]
+   },
+   "model_minus_KD_additive": {
+    "mean": -0.0742,
+    "ci95": [
+     -0.0805,
+     -0.068
+    ]
+   },
+   "E2prime_target_excluded_model_minus_mean": {
+    "mean": 0.0209,
+    "ci95": [
+     0.0163,
+     0.0257
+    ]
+   },
+   "D2prime": "KD_not_significantly_worse"
+  },
+  "pert": {
+   "model_mean": -0.0199,
+   "KD_mean_same_conditions": 0.1001,
+   "E3prime_model_minus_KD": {
+    "mean": -0.12,
+    "ci95": [
+     -0.1311,
+     -0.1091
+    ]
+   },
+   "model_minus_KD_additive": {
+    "mean": -0.0713,
+    "ci95": [
+     -0.0775,
+     -0.0652
+    ]
+   },
+   "E2prime_target_excluded_model_minus_mean": {
+    "mean": 0.0251,
+    "ci95": [
+     0.0202,
+     0.0303
+    ]
+   },
+   "D2prime": "KD_not_significantly_worse"
+  }
+ },
+ "PRESAGE": {
+  "n_conditions": 1855,
+  "ctrl": {
+   "model_mean": 0.1096,
+   "KD_mean_same_conditions": 0.0795,
+   "E3prime_model_minus_KD": {
+    "mean": 0.0301,
+    "ci95": [
+     0.0144,
+     0.0461
+    ]
+   },
+   "model_minus_KD_additive": {
+    "mean": 0.0776,
+    "ci95": [
+     0.0653,
+     0.0897
+    ]
+   },
+   "E2prime_target_excluded_model_minus_mean": {
+    "mean": 0.2028,
+    "ci95": [
+     0.192,
+     0.214
+    ]
+   },
+   "D2prime": "model_better_than_KD"
+  },
+  "pert": {
+   "model_mean": 0.1353,
+   "KD_mean_same_conditions": 0.1001,
+   "E3prime_model_minus_KD": {
+    "mean": 0.0352,
+    "ci95": [
+     0.0188,
+     0.0514
+    ]
+   },
+   "model_minus_KD_additive": {
+    "mean": 0.0838,
+    "ci95": [
+     0.071,
+     0.0968
+    ]
+   },
+   "E2prime_target_excluded_model_minus_mean": {
+    "mean": 0.2098,
+    "ci95": [
+     0.1973,
+     0.2221
+    ]
+   },
+   "D2prime": "model_better_than_KD"
+  }
+ },
+ "fMLP-GenePT": {
+  "n_conditions": 397,
+  "ctrl": {
+   "model_mean": 0.0422,
+   "KD_mean_same_conditions": 0.064,
+   "E3prime_model_minus_KD": {
+    "mean": -0.0218,
+    "ci95": [
+     -0.0562,
+     0.0113
+    ]
+   },
+   "model_minus_KD_additive": {
+    "mean": 0.0248,
+    "ci95": [
+     -0.0015,
+     0.0504
+    ]
+   },
+   "E2prime_target_excluded_model_minus_mean": {
+    "mean": 0.1492,
+    "ci95": [
+     0.124,
+     0.174
+    ]
+   },
+   "D2prime": "KD_not_significantly_worse"
+  },
+  "pert": {
+   "model_mean": 0.0734,
+   "KD_mean_same_conditions": 0.1,
+   "E3prime_model_minus_KD": {
+    "mean": -0.0265,
+    "ci95": [
+     -0.0608,
+     0.0076
+    ]
+   },
+   "model_minus_KD_additive": {
+    "mean": 0.0209,
+    "ci95": [
+     -0.0055,
+     0.048
+    ]
+   },
+   "E2prime_target_excluded_model_minus_mean": {
+    "mean": 0.144,
+    "ci95": [
+     0.1186,
+     0.1707
+    ]
+   },
+   "D2prime": "KD_not_significantly_worse"
+  }
+ },
+ "scLambda": {
+  "n_conditions": 409,
+  "ctrl": {
+   "model_mean": 0.0556,
+   "KD_mean_same_conditions": 0.0614,
+   "E3prime_model_minus_KD": {
+    "mean": -0.0057,
+    "ci95": [
+     -0.0372,
+     0.0254
+    ]
+   },
+   "model_minus_KD_additive": {
+    "mean": 0.0398,
+    "ci95": [
+     0.016,
+     0.0624
+    ]
+   },
+   "E2prime_target_excluded_model_minus_mean": {
+    "mean": 0.1624,
+    "ci95": [
+     0.141,
+     0.1844
+    ]
+   },
+   "D2prime": "KD_not_significantly_worse"
+  },
+  "pert": {
+   "model_mean": 0.0843,
+   "KD_mean_same_conditions": 0.0978,
+   "E3prime_model_minus_KD": {
+    "mean": -0.0135,
+    "ci95": [
+     -0.0451,
+     0.0172
+    ]
+   },
+   "model_minus_KD_additive": {
+    "mean": 0.0328,
+    "ci95": [
+     0.0101,
+     0.0561
+    ]
+   },
+   "E2prime_target_excluded_model_minus_mean": {
+    "mean": 0.1535,
+    "ci95": [
+     0.1314,
+     0.176
+    ]
+   },
+   "D2prime": "KD_not_significantly_worse"
+  }
+ },
+ "seconds": 23.0
+}

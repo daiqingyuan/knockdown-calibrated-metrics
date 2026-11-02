@@ -1,0 +1,46 @@
+{
+ "replogle22k562": {
+  "GEARS": {
+   "0": "replogle22k562/gears/fold0/predictions.npz",
+   "1": "replogle22k562/gears/fold1/predictions.npz",
+   "2": "replogle22k562/gears/fold2/predictions.npz",
+   "3": "replogle22k562/gears/fold3/predictions.npz",
+   "4": "replogle22k562/gears/fold4/predictions.npz"
+  },
+  "scGPT": {
+   "0": "replogle22k562/scgpt/fold0/predictions.h5ad",
+   "1": "replogle22k562/scgpt/fold1/predictions.h5ad",
+   "2": "replogle22k562/scgpt/fold2/predictions.h5ad",
+   "3": "replogle22k562/scgpt/fold3/predictions.h5ad",
+   "4": "replogle22k562/scgpt/fold4/predictions.h5ad"
+  },
+  "PRESAGE": {
+   "0": "replogle22k562/presage/fold0/predictions.npz",
+   "1": "replogle22k562/presage/fold1/predictions.npz",
+   "2": "replogle22k562/presage/fold2/predictions.npz",
+   "3": "replogle22k562/presage/fold3/predictions.npz",
+   "4": "replogle22k562/presage/fold4/predictions.npz"
+  },
+  "scLambda": {
+   "0": "replogle22k562/sclambda/fold0/predictions.npz"
+  },
+  "fMLP-GenePT": {
+   "0": "replogle22k562/fmlp_genept/fold0/predictions.npz"
+  }
+ },
+ "nadig25hepg2": {
+  "scGPT": {
+   "0": {
+    "path": "nadig25hepg2/scgpt/fold0/predictions.h5ad",
+    "sha256": "383e0d1307c888807537d86f88297efea949d6e7f390e007c6723a71140b1603"
+   }
+  },
+  "PRESAGE": {
+   "0": "nadig25hepg2/presage/fold0/predictions.npz",
+   "1": "nadig25hepg2/presage/fold1/predictions.npz",
+   "2": "nadig25hepg2/presage/fold2/predictions.npz",
+   "3": "nadig25hepg2/presage/fold3/predictions.npz",
+   "4": "nadig25hepg2/presage/fold4/predictions.npz"
+  }
+ }
+}
