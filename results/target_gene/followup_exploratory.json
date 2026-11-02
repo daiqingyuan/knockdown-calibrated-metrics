@@ -50,7 +50,12 @@
   "target_share_of_mean_baseline_WMSE": {
    "mean_of_ratios": 0.1494842768472795,
    "ratio_of_means": 0.27904932344901984,
-   "median": 0.0231710565131518
+   "median": 0.0231710565131518,
+   "by_expression": {
+    "n": 1855,
+    "top_decile_share_of_contribution": 0.722135718768218,
+    "spearman_bt_contribution": 0.8781324850783464
+   }
   },
   "models": {
    "GEARS": {
@@ -1040,7 +1045,12 @@
   "target_share_of_mean_baseline_WMSE": {
    "mean_of_ratios": 0.07316796323541178,
    "ratio_of_means": 0.18809547686952363,
-   "median": 0.0039747314738018
+   "median": 0.0039747314738018,
+   "by_expression": {
+    "n": 2100,
+    "top_decile_share_of_contribution": 0.902530343141517,
+    "spearman_bt_contribution": 0.9011772137428082
+   }
   },
   "models": {
    "Linear": {

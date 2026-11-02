@@ -1,8 +1,8 @@
-# Calibrated metrics for perturbation-response prediction reward predicting the knockdown
+# Weighted calibrated metrics for perturbation-response prediction reward predicting the knockdown
 
-Analysis code and results for the manuscript of the same title (Qingyuan Dai, University of Western Australia).
+Analysis code and results for the manuscript of the same title (Qingyuan Dai, University of Western Australia). The repository also supports a shorter Matters Arising version of the same analysis.
 
-The manuscript re-scores the two unseen-gene CRISPRi benchmarks of Miller et al. (*Nature Biotechnology*, 2026; CellSimBench) and measures how much of the calibrated metrics' reward (WMSE and weighted delta R²) comes from the knocked-down target gene. It compares published and retrained models with a knockdown-aware baseline that copies the training mean and lowers only the target gene.
+The manuscript re-scores the two unseen-gene CRISPRi benchmarks of Miller et al. (*Nature Biotechnology*, 2026; CellSimBench) and measures how much of the reward given by their weighted calibrated metrics (WMSE and weighted delta R²) comes from the knocked-down target gene. It compares published and retrained models with a knockdown-aware baseline that copies the training mean and lowers only the target gene.
 
 ## Contents
 
@@ -52,21 +52,26 @@ Run the scripts from `code/`, once per dataset (`WMSE_DS`):
 2. **Reproduction and weight–truth coupling:** Replogle `03 → 05 → 06 → 07 → 08`; Nadig `13 → 15 → 16 → 17`. `06` and `16` are resumable.
 3. **Target-gene analysis:** `20_target_gene.py → 21_kd_baseline_table.py → 22_weighted_r2.py`.
 4. **Retrained models:** assemble the Colab exports with `30_assemble_colab_predictions.py <dir> [<dir> ...]`, then set `WMSE_PRED_SET=retrained` and run `20 → 22 → 31_retrained_report.py`. Outputs carry the suffix `_retrained`.
-5. **Exploratory follow-up:** `python code/23_followup_exploratory.py`, run from the repository root once the outputs above exist. It needs only the per-perturbation results, not the data or the predictions, and writes `results/target_gene/followup_exploratory.json`: positions on the calibrated scale, models given the knockdown, win rates, influence counts and Holm-adjusted P values.
+5. **Exploratory follow-up:** `python code/23_followup_exploratory.py`, run from the repository root once the outputs above exist. It needs only the per-perturbation results, not the data or the predictions, and writes `results/target_gene/followup_exploratory.json`: positions between the negative and positive controls of Miller et al., models given the knockdown, win rates, influence counts, Holm-adjusted P values, and how the target's contribution to the dataset mean's WMSE is concentrated in highly expressed targets.
 
 All bootstrap intervals use 10,000 resamples of perturbations with seed 20261102.
 
 ## Where the manuscript's numbers come from
 
-| Manuscript item | File in `results/target_gene/` (one per dataset) |
-|---|---|
-| Table 1 | `<dataset>_summary.json` (`desc_*`, `knockdown_factor_by_fold`) and `<dataset>_per_condition.csv` |
-| Table 2 | `<dataset>_summary.json` (`G_nat`, `E1_share_target`, `E2_G_X_target_excluded`) and `<dataset>_weighted_r2_summary.json` (`E2prime_*`) |
-| Table 3 | `<dataset>_kd_baseline_table.json` and `<dataset>_weighted_r2_summary.json` (`baselines`) |
-| Table 4, Fig. 1 | `<dataset>_retrained_report.json`, `<dataset>_summary[_retrained].json`, `<dataset>_weighted_r2_summary[_retrained].json` |
-| Fig. 2 | `pred_ratio_t` and `true_ratio_t` in the per-condition files, and `E2prime_*` |
+Items are numbered as in the preprint, with the Matters Arising item in brackets. Files are in `results/target_gene/` (one per dataset) unless a path is given.
 
-The Matters Arising version also draws on `followup_exploratory.json` for Fig. 1, the Holm-adjusted markers of Fig. 2, the per-perturbation win rates, the knockdown-supplied models and the added rows of Extended Data Tables 1–3.
+| Manuscript item | Source |
+|---|---|
+| Table 1 | `<dataset>_summary.json` (`desc_*`, `knockdown_factor_by_fold`), `<dataset>_per_condition.csv`, and `followup_exploratory.json` (`target_share_of_mean_baseline_WMSE`) |
+| Table 2 (Extended Data Table 1) | `<dataset>_summary[_retrained].json` (`G_nat`, `E1_share_target`, `E2_G_X_target_excluded`, `E3_gap_closed_by_bKD`) and `<dataset>_weighted_r2_summary[_retrained].json` (`E2prime_*`) |
+| Table 3 (Extended Data Table 2) | `<dataset>_kd_baseline_table.json`, `<dataset>_weighted_r2_summary.json` (`baselines`) and `followup_exploratory.json` (`bKD_by_set`) |
+| Table 4 and Fig. 2 (Fig. 2) | `<dataset>_summary[_retrained].json` (`E3_adv_vs_bKD`), `<dataset>_weighted_r2_summary[_retrained].json` (`E3prime_model_minus_KD`) and `followup_exploratory.json` (`win_rate_vs_bKD`; the Holm-adjusted P values are under `holm_fig1`, a key that predates the renumbering) |
+| Table 5 (Extended Data Table 3) | `<dataset>_retrained_report.json` (`fidelity_gate`) for PRESAGE, scLambda and fMLP-GenePT; `results/native_wmse_summary.json`, `results/nadig25hepg2/native_wmse_summary.json` and `<dataset>_weighted_r2_summary.json` for scGPT and GEARS |
+| Fig. 1 (Fig. 1) | `followup_exploratory.json` (`position_vs_positive_control`, `models.*.position`) |
+| Fig. 3 | `pred_ratio_t` and `true_ratio_t` in the per-condition files, and `E2prime_*` |
+| Per-fold estimates, influence counts and knockdown-supplied models in the text | `followup_exploratory.json` |
+
+Where a source is given as `[_retrained]`, rows for scGPT, GEARS and the linear baseline come from the files without `_retrained`, and rows for PRESAGE, scLambda and fMLP-GenePT from the `_retrained` files.
 
 The checks of our t statistics against the values stored in the data files (maximum absolute difference 6.1 × 10⁻⁶ on Replogle and 8.8 × 10⁻⁶ on Nadig) are in `results/tstat_validation.json` and `results/nadig25hepg2/tstat_validation.json`, written by `02_tstats.py`.
 
@@ -91,4 +96,4 @@ The code in this repository is released under the MIT licence (`LICENSE`). PRESA
 
 ## Citation
 
-[Manuscript reference to be added.]
+Dai, Q. Weighted calibrated metrics for perturbation-response prediction reward predicting the knockdown. Preprint at Zenodo (2026). https://doi.org/10.5281/zenodo.23928733

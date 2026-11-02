@@ -11,7 +11,8 @@ denominator are resampled together.
    mean divided by the mean gain of the positive control, all test perturbations.
 2. b_KD scored on each model's own perturbation set (matched leaderboard).
 3. Per model: paired differences from b_KD with bootstrap p values, Holm-adjusted
-   over the 27 paired comparisons (Fig. 2 of the Matters Arising; key 'holm_fig1');
+   over the 27 paired comparisons (Fig. 2 of both manuscripts; the key 'holm_fig1'
+   predates the renumbering);
    win rates; per-fold estimates; the number of
    perturbations whose removal reverses b_KD's lead (influence).
 4. Knockdown-supplied models: the model's prediction at the targeted gene is
@@ -25,7 +26,13 @@ denominator are resampled together.
    pre-specified values reported in the manuscripts come from scripts 20 and 22;
    the intervals here use their own generators and can differ in the last digit.
 6. Positions of each model, of the model given the knockdown, and of b_KD on the
-   model's own perturbations (Fig. 1 of the Matters Arising).
+   model's own perturbations (Fig. 1 of both manuscripts).
+7. Concentration of the target's contribution to the dataset mean's WMSE in
+   highly expressed targets: the target's training-mean expression b_t is
+   recovered per perturbation as sqrt(contribution / q_t) / |1 - y_t / b_t|, and
+   the share of the summed contribution coming from the 10% of perturbations
+   with the highest b_t is reported, with the Spearman correlation between b_t
+   and the contribution.
 
 Usage: python code/23_followup_exploratory.py  (from the repository root)
 """
@@ -131,6 +138,14 @@ def main():
         o['target_share_of_mean_baseline_WMSE'] = {'mean_of_ratios': float(sh.mean()),
                                                    'ratio_of_means': float((sh * lin.WMSE_b).mean() / lin.WMSE_b.mean()),
                                                    'median': float(sh.median())}
+        contrib_b = sh * lin.WMSE_b                           # q_t (b_t - y_t)^2 of the dataset mean
+        ok = (lin.q_t > 0) & ((1 - lin.true_ratio_t).abs() > 1e-9)
+        b_t = np.sqrt(contrib_b[ok] / lin.q_t[ok]) / (1 - lin.true_ratio_t[ok]).abs()
+        top = np.argsort(-b_t.values)[:len(b_t) // 10]
+        o['target_share_of_mean_baseline_WMSE']['by_expression'] = {
+            'n': int(ok.sum()),
+            'top_decile_share_of_contribution': float(contrib_b[ok].values[top].sum() / contrib_b[ok].sum()),
+            'spearman_bt_contribution': float(pd.Series(b_t.values).corr(pd.Series(contrib_b[ok].values), method='spearman'))}
         models = {}
         for mod, d in mm.groupby('model'):
             r = {'n': len(d)}
