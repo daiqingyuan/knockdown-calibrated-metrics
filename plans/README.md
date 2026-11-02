@@ -1,6 +1,6 @@
 # Analysis plans
 
-Each analysis plan was written in Chinese and locked before the outcomes it covers were computed; its SHA-256 digest was recorded at the time shown (UTC). This folder holds English translations of these plans. The Chinese originals are not included; their digests are listed below. Each translation has its own digest file (`*_en.sha256`), computed when the translation was made.
+Each analysis plan was written in Chinese and locked before the outcomes it covers were computed; its SHA-256 digest was recorded at the time shown (UTC). This folder holds English translations of these plans. The Chinese originals are not included; their digests are listed below, and the originals are available to journal editors and referees on request. Each translation has its own digest file (`*_en.sha256`), computed when the translation was made.
 
 | Plan | Covers | Original SHA-256 | Locked (UTC) | English translation |
 |---|---|---|---|---|

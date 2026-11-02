@@ -1,0 +1,20 @@
+{
+ "n_conditions_checked": 2322,
+ "max_abs_t_diff": 8.766846819163732e-06,
+ "max_rel_t_diff(|t|>=1 scale)": 3.0823356573452174e-06,
+ "worst_case(condition, gene, author_t, mine_t)": [
+  "EIF3M",
+  "TPT1",
+  6.665820598602295,
+  6.665811831755476
+ ],
+ "max_abs_normalized_weight_diff": 1.2845546721804157e-08,
+ "half_cell_counts_noncontrol": {
+  "first_min": 6,
+  "first_median": 23.0,
+  "first_max": 31,
+  "second_min": 6,
+  "second_max": 31
+ },
+ "seconds": 79.9
+}

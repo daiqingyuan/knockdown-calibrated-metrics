@@ -52,6 +52,7 @@ Run the scripts from `code/`, once per dataset (`WMSE_DS`):
 2. **Reproduction and weight–truth coupling:** Replogle `03 → 05 → 06 → 07 → 08`; Nadig `13 → 15 → 16 → 17`. `06` and `16` are resumable.
 3. **Target-gene analysis:** `20_target_gene.py → 21_kd_baseline_table.py → 22_weighted_r2.py`.
 4. **Retrained models:** assemble the Colab exports with `30_assemble_colab_predictions.py <dir> [<dir> ...]`, then set `WMSE_PRED_SET=retrained` and run `20 → 22 → 31_retrained_report.py`. Outputs carry the suffix `_retrained`.
+5. **Exploratory follow-up:** `python code/23_followup_exploratory.py`, run from the repository root once the outputs above exist. It needs only the per-perturbation results, not the data or the predictions, and writes `results/target_gene/followup_exploratory.json`: positions on the calibrated scale, models given the knockdown, win rates, influence counts and Holm-adjusted P values.
 
 All bootstrap intervals use 10,000 resamples of perturbations with seed 20261102.
 
@@ -65,6 +66,10 @@ All bootstrap intervals use 10,000 resamples of perturbations with seed 20261102
 | Table 4, Fig. 1 | `<dataset>_retrained_report.json`, `<dataset>_summary[_retrained].json`, `<dataset>_weighted_r2_summary[_retrained].json` |
 | Fig. 2 | `pred_ratio_t` and `true_ratio_t` in the per-condition files, and `E2prime_*` |
 
+The Matters Arising version also draws on `followup_exploratory.json` for Fig. 1, the Holm-adjusted markers of Fig. 2, the per-perturbation win rates, the knockdown-supplied models and the added rows of Extended Data Tables 1–3.
+
+The checks of our t statistics against the values stored in the data files (maximum absolute difference 6.1 × 10⁻⁶ on Replogle and 8.8 × 10⁻⁶ on Nadig) are in `results/tstat_validation.json` and `results/nadig25hepg2/tstat_validation.json`, written by `02_tstats.py`.
+
 The weight–truth coupling results (Methods) are in `results/samecross_native_summary.json` (Replogle) and `results/nadig25hepg2/samecross_native_summary.json` (Nadig).
 
 ## Colab retraining
@@ -75,6 +80,8 @@ The notebooks rebuild each model's environment from its Dockerfile in the author
 2. `02_fix_sclambda.py`, executed in the same Colab session: the live Ensembl BioMart was unavailable, so scLambda's gene descriptions are fetched from the Ensembl release 115 archive with the wrapper's own code, and scLambda is re-run.
 3. `03_run_more_folds.py`, executed in the same session: PRESAGE on Replogle folds 1–4.
 4. `04_retrain_nadig_presage.ipynb`: PRESAGE on all five Nadig folds.
+
+Notebook 04 clears PRESAGE's cached knowledge tensor (`WeightedDeepset.*.embeddings.pkl`) before each fold; notebook 01 and `03_run_more_folds.py` reuse it across folds. The tensor is built from external knowledge sources over the dataset's gene list and does not depend on a fold's training data, so reusing it passes no test information to training.
 
 scLambda needs an OpenAI API key, entered in the notebook's settings cell. Never commit a key.
 

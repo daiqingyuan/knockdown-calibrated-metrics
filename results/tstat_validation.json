@@ -1,0 +1,20 @@
+{
+ "n_conditions_checked": 2044,
+ "max_abs_t_diff": 6.0963617496412326e-06,
+ "max_rel_t_diff(|t|>=1 scale)": 2.676767526394878e-06,
+ "worst_case(condition, gene, author_t, mine_t)": [
+  "NAE1",
+  "FTL",
+  9.47906494140625,
+  9.479071037768
+ ],
+ "max_abs_normalized_weight_diff": 1.9380341347366437e-08,
+ "half_cell_counts_noncontrol": {
+  "first_min": 6,
+  "first_median": 61.0,
+  "first_max": 76,
+  "second_min": 6,
+  "second_max": 76
+ },
+ "seconds": 73.4
+}
