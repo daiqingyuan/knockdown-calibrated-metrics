@@ -181,13 +181,15 @@ def main():
             # position on the calibrated scale, on the model's own perturbations (Fig. 1)
             x = d.merge(m[['fold', 'condition', 'Dataset Mean', 'Inter. Dup.', 'R2ctrl|Dataset Mean', 'R2ctrl|Inter. Dup.',
                            'R2pert|Dataset Mean', 'R2pert|Inter. Dup.']], on=['fold', 'condition'])
-            den = {'WMSE': (x['Dataset Mean'] - x['Inter. Dup.']).mean(),
-                   'WR2_ctrl': (x['R2ctrl|Inter. Dup.'] - x['R2ctrl|Dataset Mean']).mean(),
-                   'WR2_pert': (x['R2pert|Inter. Dup.'] - x['R2pert|Dataset Mean']).mean()}
             def pos(wmse, rc, rp):
-                return {'WMSE': float((x.WMSE_b - wmse).mean() / den['WMSE']),   # gain on the model's own gene axis
-                        'WR2_ctrl': float((np.nanmean(rc) - x['R2ctrl|Dataset Mean'].mean()) / den['WR2_ctrl']),
-                        'WR2_pert': float((np.nanmean(rp) - x['R2pert|Dataset Mean'].mean()) / den['WR2_pert'])}
+                out = {'WMSE': float((x.WMSE_b - wmse).mean()   # gain on the model's own gene axis
+                                     / (x['Dataset Mean'] - x['Inter. Dup.']).mean())}
+                for met, col, r in [('WR2_ctrl', 'R2ctrl', rc), ('WR2_pert', 'R2pert', rp)]:
+                    r = np.asarray(r, float)
+                    ok = ~np.isnan(r)   # a perturbation without an unfloored score is left out of every term
+                    dm, dup = x.loc[ok, f'{col}|Dataset Mean'], x.loc[ok, f'{col}|Inter. Dup.']
+                    out[met] = float((r[ok].mean() - dm.mean()) / (dup - dm).mean())
+                return out
             aug_x = x.WMSE_f + x.contrib_t - (x.WMSE_b - x.WMSE_bKD)
             rc_aug, _ = r2_from_wmse(x, 'R2ctrl', aug_x); rp_aug, _ = r2_from_wmse(x, 'R2pert', aug_x)
             r['position'] = {'model': pos(x.WMSE_f, x['R2ctrl|f'], x['R2pert|f']),

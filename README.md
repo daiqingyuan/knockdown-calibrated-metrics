@@ -29,7 +29,7 @@ https://public-access-bucket-i9sdj34j.s3.amazonaws.com/cellsimbench-data/data/<d
 
 Place each file at `$WMSE_DATA_DIR/<dataset>/<dataset>_processed_complete.h5ad`.
 
-Model predictions are not stored in this repository. List the files you have in a copy of `predictions_index.example.json` (paths relative to that file, optionally with a SHA-256 to verify) and point `WMSE_PRED_INDEX` at it.
+Model predictions are not stored in this repository; the predictions analysed in the manuscript are available from the author on request. List the files you have in a copy of `predictions_index.example.json` (paths relative to that file, optionally with a SHA-256, which is checked when the file is loaded) and point `WMSE_PRED_INDEX` at it. A listed file that is missing stops the run; set `WMSE_ALLOW_MISSING=1` to skip it instead.
 
 ## Setup
 
@@ -43,6 +43,7 @@ Python 3.10 or later with the packages in `requirements.txt`.
 | `WMSE_PRED_INDEX` | Prediction index JSON. |
 | `WMSE_DS` | `replogle22k562` (default) or `nadig25hepg2`. |
 | `WMSE_PRED_SET` | `scgpt_gears` (default) or `retrained` (PRESAGE, scLambda, fMLP-GenePT). |
+| `WMSE_ALLOW_MISSING` | Optional: `1` skips prediction files that are listed in the index but missing. |
 
 ## Running
 

@@ -9,6 +9,7 @@ Configuration comes from environment variables (see README.md):
   WMSE_DS          replogle22k562 (default) or nadig25hepg2
   WMSE_PRED_SET    scgpt_gears (default: scGPT and GEARS) or retrained (PRESAGE, scLambda, fMLP-GenePT)
 """
+import hashlib
 import json
 import os
 import numpy as np
@@ -30,21 +31,30 @@ SET_MODELS = {'scgpt_gears': ['GEARS', 'scGPT'], 'retrained': ['fMLP-GenePT', 'P
 assert PRED_SET in SET_MODELS, PRED_SET
 
 # PRED maps (model, fold) to a prediction file (.npz from code/30_assemble_colab_predictions.py, or the .h5ad a
-# CellSimBench model writes). Index entries are a path, or {"path": ..., "sha256": ...} to verify the file first;
-# relative paths are taken relative to the index file. Files listed but absent are skipped.
+# CellSimBench model writes). Index entries are a path, or {"path": ..., "sha256": ...}; a listed SHA-256 is checked
+# when the file is loaded. Relative paths are taken relative to the index file. A listed file that is absent stops
+# the run, unless WMSE_ALLOW_MISSING=1, which skips it with a warning.
 PRED, PRED_SHA256 = {}, {}
 _index_file = os.environ.get('WMSE_PRED_INDEX', 'predictions_index.json')
 if os.path.exists(_index_file):
     _root = os.path.dirname(os.path.abspath(_index_file))
     _index = json.load(open(_index_file)).get(DS, {})
+    _missing = []
     for _m in SET_MODELS[PRED_SET]:
         for _k, _e in sorted(_index.get(_m, {}).items(), key=lambda kv: int(kv[0])):
             _e = {'path': _e} if isinstance(_e, str) else _e
             _p = _e['path'] if os.path.isabs(_e['path']) else os.path.join(_root, _e['path'])
-            if os.path.exists(_p):
-                PRED[(_m, int(_k))] = _p
-                if _e.get('sha256'):
-                    PRED_SHA256[(_m, int(_k))] = _e['sha256']
+            if not os.path.exists(_p):
+                _missing.append(_p)
+                continue
+            PRED[(_m, int(_k))] = _p
+            if _e.get('sha256'):
+                PRED_SHA256[(_m, int(_k))] = _e['sha256']
+    if _missing:
+        if os.environ.get('WMSE_ALLOW_MISSING') != '1':
+            raise FileNotFoundError('prediction files listed in the index are missing (set WMSE_ALLOW_MISSING=1 to '
+                                    'skip them): ' + ', '.join(_missing))
+        print('warning: skipping missing prediction files:', ', '.join(_missing))
 
 
 def dec(a):
@@ -77,6 +87,13 @@ def read_df_rows(g):
 def load_prediction(model, fold):
     """Return (condition names without dataset prefix, gene names, matrix float64)."""
     p = PRED[(model, fold)]
+    if (model, fold) in PRED_SHA256:
+        h = hashlib.sha256()
+        with open(p, 'rb') as fh:
+            for block in iter(lambda: fh.read(1 << 20), b''):
+                h.update(block)
+        if h.hexdigest() != PRED_SHA256[(model, fold)]:
+            raise ValueError(f'{p}: sha256 {h.hexdigest()} does not match the index')
     if p.endswith('.npz'):
         z = np.load(p, allow_pickle=False)
         return [str(c) for c in z['conditions']], [str(g) for g in z['gene_names']], z['predictions'].astype(np.float64)
